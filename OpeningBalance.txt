@@ -1,0 +1,19 @@
+SELECT
+    CASE
+        WHEN Document_Type = 'AB'
+         AND Document_Number = '0000000000'
+        THEN 'Opening Balance'
+        ELSE 'November Transactions'
+    END AS RecordType,
+    COUNT(*) AS TotalRecords
+FROM dbo.TB_CustomerLedger
+WHERE CompanyCode = 1054
+  AND Posting_Date >= '20261101'
+  AND Posting_Date < '20261125'
+GROUP BY
+    CASE
+        WHEN Document_Type = 'AB'
+         AND Document_Number = '0000000000'
+        THEN 'Opening Balance'
+        ELSE 'November Transactions'
+    END;
